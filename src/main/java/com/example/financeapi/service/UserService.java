@@ -43,6 +43,10 @@ public class UserService {
         return userDao.getTransactionHistoryOfUser(id);
     }
 
+    public int pushTransaction(Transaction tr) {
+        return userDao.pushTransaction(tr);
+    }
+
     public int addUser(User user) {
 
         return userDao.addUser(user);

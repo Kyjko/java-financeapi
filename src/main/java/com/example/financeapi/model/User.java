@@ -38,22 +38,24 @@ public class User {
         this.balance = b;
     }
 
-    public int executeTransaction(Transaction tr) {
+    public void executeTransaction(Transaction tr) {
         if(tr.getSender().getId().equals(this.getId())) {
             double trAmount = tr.getAmount();
             if(balance >= trAmount) {
                 this.setBalance(this.getBalance()-trAmount);
+                tr.getRecipient().setBalance(tr.getRecipient().getBalance()+trAmount);
+                transactionHistory.add(tr);
+                tr.getRecipient().transactionHistory.add(tr);
             }
         } else if(tr.getRecipient().getId().equals(this.getId())) {
             double trAmount = tr.getAmount();
             this.setBalance(this.getBalance() + trAmount);
+            tr.getSender().setBalance(tr.getSender().getBalance()-trAmount);
+            transactionHistory.add(tr);
+            tr.getSender().transactionHistory.add(tr);
         } else if(tr.getRecipient().getId().equals(tr.getSender().getId())) {
-            return -1;
+            // TODO: something
         }
-
-        transactionHistory.add(tr);
-
-        return tr.getId();
     }
 
     public List<Transaction> getTransactionHistory() {

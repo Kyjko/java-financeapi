@@ -6,7 +6,7 @@ public class Transaction {
 
     private final int id;
     private final double amount;
-    private final User recipient;
+    private User recipient;
     private final User sender;
     private final String comment;
 
@@ -20,6 +20,10 @@ public class Transaction {
 
     public int getId() {
         return id;
+    }
+
+    public void setRecipient(User recipient) {
+        this.recipient = recipient;
     }
 
     public double getAmount() {

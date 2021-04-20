@@ -56,4 +56,15 @@ public class InMemoryUserAccessDao implements UserDao {
     public List<Transaction> getTransactionHistoryOfUser(UUID id) {
         return getUserById(id).getTransactionHistory();
     }
+
+    @Override
+    public int pushTransaction(Transaction tr) {
+        UUID trSenderId = tr.getSender().getId();
+        UUID trRecipientId = tr.getRecipient().getId();
+        User trSender = getUserById(trSenderId);
+        User trRecipient = getUserById(trRecipientId);
+        tr.setRecipient(trRecipient);
+        trSender.executeTransaction(tr);
+        return 0;
+    }
 }

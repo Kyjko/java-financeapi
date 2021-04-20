@@ -14,6 +14,7 @@ public interface UserDao {
         return insertUser(id, user);
     }
     List<Transaction> getTransactionHistoryOfUser(UUID id);
+    int pushTransaction(Transaction tr);
     User getUserById(UUID id);
     User getUserByName(String name);
     int deleteUserById(UUID id);
