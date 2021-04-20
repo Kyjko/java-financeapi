@@ -1,5 +1,6 @@
 package com.example.financeapi.dao;
 
+import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -49,5 +50,10 @@ public class InMemoryUserAccessDao implements UserDao {
         User toInsert = new User(id, user.getName(), user.getPassword(), user.getBalance());
         userDB.add(toInsert);
         return 0;
+    }
+
+    @Override
+    public List<Transaction> getTransactionHistoryOfUser(UUID id) {
+        return getUserById(id).getTransactionHistory();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.financeapi.dao;
 
+import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ public interface UserDao {
         UUID id = UUID.randomUUID();
         return insertUser(id, user);
     }
+    List<Transaction> getTransactionHistoryOfUser(UUID id);
     User getUserById(UUID id);
     User getUserByName(String name);
     int deleteUserById(UUID id);

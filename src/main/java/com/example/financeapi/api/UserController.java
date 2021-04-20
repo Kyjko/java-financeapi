@@ -1,5 +1,6 @@
 package com.example.financeapi.api;
 
+import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
 import com.example.financeapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,12 @@ public class UserController {
     @PutMapping(path = "{id}")
     public int updateUserById(@PathVariable("id") UUID id, @RequestBody final User user) {
         return userService.updateUserById(id, user);
+    }
+
+    @RequestMapping("/api/v1/users/transactions")
+    @GetMapping(path = "{id}")
+    public List<Transaction> getTransactionHistoryOfUser(@PathVariable("id") UUID id) {
+        return userService.getTransactionHistoryOfUser(id);
     }
 
     @PostMapping

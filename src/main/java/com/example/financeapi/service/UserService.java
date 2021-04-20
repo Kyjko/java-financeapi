@@ -1,6 +1,7 @@
 package com.example.financeapi.service;
 
 import com.example.financeapi.dao.UserDao;
+import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +37,10 @@ public class UserService {
 
     public int updateUserById(UUID id, User user) {
         return userDao.updateUserById(id, user);
+    }
+
+    public List<Transaction> getTransactionHistoryOfUser(UUID id) {
+        return userDao.getTransactionHistoryOfUser(id);
     }
 
     public int addUser(User user) {
