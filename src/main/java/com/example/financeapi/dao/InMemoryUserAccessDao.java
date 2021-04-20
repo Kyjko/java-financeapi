@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository("in_memory")
@@ -47,7 +46,7 @@ public class InMemoryUserAccessDao implements UserDao {
 
     @Override
     public int insertUser(UUID id, User user) {
-        User toInsert = new User(id, user.getName(), user.getPassword());
+        User toInsert = new User(id, user.getName(), user.getPassword(), user.getBalance());
         userDB.add(toInsert);
         return 0;
     }
