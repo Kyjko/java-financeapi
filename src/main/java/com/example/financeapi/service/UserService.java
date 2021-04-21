@@ -47,6 +47,10 @@ public class UserService {
         return userDao.pushTransaction(tr);
     }
 
+    public List<Transaction> getTransactionHistory() {
+        return userDao.getTransactionHistory();
+    }
+
     public int addUser(User user) {
 
         return userDao.addUser(user);

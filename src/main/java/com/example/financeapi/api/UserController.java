@@ -52,6 +52,12 @@ public class UserController {
     }
 
     @RequestMapping("api/v1/transactions")
+    @GetMapping
+    public List<Transaction> getTransactionHistory() {
+        return userService.getTransactionHistory();
+    }
+
+    @RequestMapping("api/v1/transactions")
     @PostMapping
     public int pushTransaction(@RequestBody final Transaction tr) {
         return userService.pushTransaction(tr);

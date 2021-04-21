@@ -2,7 +2,6 @@ package com.example.financeapi.dao;
 
 import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
-import net.bytebuddy.build.Plugin;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.UUID;
 public class InMemoryUserAccessDao implements UserDao {
 
     private static final List<User> userDB = new ArrayList<>();
+    private static final List<Transaction> transactionHistory = new ArrayList<>();
     private static TransactionManager trManager;
 
     public InMemoryUserAccessDao() {
@@ -64,8 +64,14 @@ public class InMemoryUserAccessDao implements UserDao {
     }
 
     @Override
+    public List<Transaction> getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    @Override
     public int pushTransaction(Transaction tr) {
         trManager.pushTransaction(tr);
+        transactionHistory.add(tr);
         return 0;
     }
 
