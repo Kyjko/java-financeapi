@@ -34,14 +34,16 @@ public class TransactionManager {
         transactionBuffer.forEach(tr -> {
             User sender = userDao.getUserById(tr.getSenderId());
             User recipient = userDao.getUserById(tr.getRecipientId());
-            sender.setBalance(sender.getBalance() - tr.getAmount());
-            recipient.setBalance(recipient.getBalance() + tr.getAmount());
+            if(sender != null && recipient != null) {
+                sender.setBalance(sender.getBalance() - tr.getAmount());
+                recipient.setBalance(recipient.getBalance() + tr.getAmount());
 
-            sender.storeTransaction(tr);
-            recipient.storeTransaction(tr);
+                sender.storeTransaction(tr);
+                recipient.storeTransaction(tr);
 
-            userDao.updateUserById(tr.getSenderId(), sender);
-            userDao.updateUserById(tr.getRecipientId(), recipient);
+                userDao.updateUserById(tr.getSenderId(), sender);
+                userDao.updateUserById(tr.getRecipientId(), recipient);
+            }
         });
 
         transactionBuffer.clear();
