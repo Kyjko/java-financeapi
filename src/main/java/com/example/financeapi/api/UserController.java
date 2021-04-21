@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@RequestMapping("/api/v1")
 @CrossOrigin
 @RestController
 public class UserController {
@@ -19,50 +20,42 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/api/v1/users/get")
-    @GetMapping(path = "{id}")
+    @GetMapping("/users/get/{id}")
     public User getUserById(@PathVariable("id") UUID id) {
         return userService.getUserById(id);
     }
 
-    @RequestMapping("/api/v1/users/delete")
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("/users/delete/{id}")
     public int deleteUserById(@PathVariable("id") UUID id) {
         return userService.deleteUserById(id);
     }
 
-    @RequestMapping("/api/v1/users")
-    @GetMapping
+    @GetMapping("/users")
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
-    @RequestMapping("/api/v1/users/update")
-    @PutMapping(path = "{id}")
+    @PutMapping("/users/update/{id}")
     public int updateUserById(@PathVariable("id") UUID id, @RequestBody final User user) {
         return userService.updateUserById(id, user);
     }
 
-    @RequestMapping("/api/v1/users/transactions/get")
-    @GetMapping(path = "{id}")
+    @GetMapping("/users/transactions/get{id}")
     public List<Transaction> getTransactionHistoryOfUser(@PathVariable("id") UUID id) {
         return userService.getTransactionHistoryOfUser(id);
     }
 
-    @RequestMapping("/api/v1/transactions")
-    @GetMapping
+    @GetMapping("/transactions")
     public List<Transaction> getTransactionHistory() {
         return userService.getTransactionHistory();
     }
 
-    @RequestMapping("/api/v1/transactions/push")
-    @PostMapping
+    @PostMapping("/transactions/push")
     public int pushTransaction(@RequestBody final Transaction tr) {
         return userService.pushTransaction(tr);
     }
 
-    @RequestMapping("/api/v1/users/add")
-    @PostMapping
+    @PostMapping("/users/add")
     public int addUser(@RequestBody final User user) {
         return userService.addUser(user);
     }

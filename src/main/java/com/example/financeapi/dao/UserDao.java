@@ -2,7 +2,6 @@ package com.example.financeapi.dao;
 
 import com.example.financeapi.model.Transaction;
 import com.example.financeapi.model.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
