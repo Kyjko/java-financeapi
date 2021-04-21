@@ -1,8 +1,11 @@
 package com.example.financeapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.UUID;
 
 @Entity
@@ -27,35 +30,16 @@ public class User {
     @Column(name = "s_id", unique = true, nullable = false)
     private int s_id;
 
-    public User(UUID id, String name, String password, double balance) {
+    public User(@JsonProperty("id") UUID id, @JsonProperty("name") String name,
+                @JsonProperty("password") String password, @JsonProperty("balance") double balance) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.balance = balance;
     }
 
-    private void setBalance(double b) {
+    public void setBalance(double b) {
         this.balance = b;
-    }
-
-    public void executeTransaction(Transaction tr) {
-        if(tr.getSender().getId().equals(this.getId())) {
-            double trAmount = tr.getAmount();
-            if(balance >= trAmount) {
-                this.setBalance(this.getBalance()-trAmount);
-                tr.getRecipient().setBalance(tr.getRecipient().getBalance()+trAmount);
-                transactionHistory.add(tr);
-                tr.getRecipient().transactionHistory.add(tr);
-            }
-        } else if(tr.getRecipient().getId().equals(this.getId())) {
-            double trAmount = tr.getAmount();
-            this.setBalance(this.getBalance() + trAmount);
-            tr.getSender().setBalance(tr.getSender().getBalance()-trAmount);
-            transactionHistory.add(tr);
-            tr.getSender().transactionHistory.add(tr);
-        } else if(tr.getRecipient().getId().equals(tr.getSender().getId())) {
-            // TODO: something
-        }
     }
 
     public List<Transaction> getTransactionHistory() {
@@ -76,6 +60,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void storeTransaction(Transaction tr) {
+        transactionHistory.add(tr);
     }
 
     public int getS_id() {

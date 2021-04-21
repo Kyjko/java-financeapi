@@ -1,20 +1,26 @@
 package com.example.financeapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.lang.NonNull;
+
+import java.util.UUID;
 
 public class Transaction {
 
     private final int id;
     private final double amount;
-    private User recipient;
-    private final User sender;
+    private final UUID recipientId;
+    private final UUID senderId;
     private final String comment;
 
-    public Transaction(@NonNull int id, double amount, User recipient, User sender, String comment) {
+    public Transaction(int id, @JsonProperty("amount") double amount,
+                       @JsonProperty("recipientId") UUID recipientId,
+                       @JsonProperty("senderId") UUID senderId,
+                       @JsonProperty("comment") String comment) {
         this.id = id;
         this.amount = amount;
-        this.recipient = recipient;
-        this.sender = sender;
+        this.recipientId = recipientId;
+        this.senderId = senderId;
         this.comment = comment;
     }
 
@@ -22,20 +28,17 @@ public class Transaction {
         return id;
     }
 
-    public void setRecipient(User recipient) {
-        this.recipient = recipient;
-    }
-
     public double getAmount() {
         return amount;
     }
 
-    public User getRecipient() {
-        return recipient;
+    public UUID getRecipientId() {
+
+        return recipientId;
     }
 
-    public User getSender() {
-        return sender;
+    public UUID getSenderId() {
+        return senderId;
     }
 
     public String getComment() {

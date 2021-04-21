@@ -51,6 +51,12 @@ public class UserController {
         return userService.getTransactionHistoryOfUser(id);
     }
 
+    @RequestMapping("api/v1/transactions")
+    @PostMapping
+    public int pushTransaction(@RequestBody final Transaction tr) {
+        return userService.pushTransaction(tr);
+    }
+
     @PostMapping
     public int addUser(@RequestBody final User user) {
         return userService.addUser(user);
